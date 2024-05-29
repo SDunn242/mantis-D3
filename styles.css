@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+#container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+
+.bar {
+    fill: steelblue;
+    transition: fill 0.3s;
+}
+
+.bar:hover {
+    fill: orange;
+}
+
+.axis-label {
+    font-size: 12px;
+}
