@@ -43,11 +43,15 @@ d3.json("data.json").then(data => {
             .tickFormat(''));
 
     // Add vertical gridlines
+    const verticalGridlines = d3.axisBottom(x)
+        .tickSize(-height)
+        .tickFormat('')
+        .ticks(inSituModel.length * 2);  // Adjust the multiplication factor for more or fewer gridlines
+
     svg.append("g")
         .attr("class", "grid")
-        .call(d3.axisBottom(x)
-            .tickSize(height)
-            .tickFormat(''));
+        .attr("transform", `translate(0,${height})`)
+        .call(verticalGridlines);
 
     // Create bars
     svg.selectAll(".bar")

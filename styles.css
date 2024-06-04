@@ -1,22 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
-}
-
-#container {
-    width: 80%;
-    margin: auto;
-    text-align: center;
-}
-
-.bar {
-    fill: steelblue;
-    transition: fill 0.3s;
-}
-
-.bar:hover {
-    fill: orange;
-}
-
-.axis-label {
-    font-size: 12px;
-}
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+  
+  .grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.7;
+    shape-rendering: crispEdges;
+  }
+  
+  .grid path {
+    stroke-width: 0;
+  }

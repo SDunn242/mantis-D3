@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<style> /* set the CSS */
 
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid Model.js</title>  
+  <link rel="stylesheet" href="styles.css">
+</head>
 
-.grid line {
-  stroke: lightgrey;
-  stroke-opacity: 0.7;
-  shape-rendering: crispEdges;
-}
-
-.grid path {
-  stroke-width: 0;
-}
-
-</style>
 <body>
 
 <!-- load the d3.js library -->    	
@@ -30,17 +18,9 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// parse the date / time
-var parseTime = d3.timeParse("%d-%b-%y");
-
 // set the ranges
-var x = d3.scaleTime().range([0, width]);
+var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
-
-// define the line
-//var valueline = d3.line()
-//    .x(function(d) { return x(d.date); })
-//    .y(function(d) { return y(d.close); });
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
@@ -52,45 +32,49 @@ var svg = d3.select("body").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// gridlines in x axis function
-function make_x_gridlines() {		
-    return d3.axisBottom(x)
-        .ticks(5)
-}
+// Load JSON data
+d3.json("data.json").then(data => {
+    const inSituModel = data.fd_parameters.in_situ_model;
+    const inputParameters = data.fd_parameters.input_parameters;
 
-// gridlines in y axis function
-function make_y_gridlines() {		
-    return d3.axisLeft(y)
-        .ticks(5)
-}
+  // gridlines in x axis function
+  function make_x_gridlines() {		
+      return d3.axisBottom(x)
+          .ticks(inputParameters.nxtot/inputParameters.dl)
+  }
 
-// add the X gridlines
-svg.append("g")			
-      .attr("class", "grid")
-      .attr("transform", "translate(0," + height + ")")
-      .call(make_x_gridlines()
-          .tickSize(-height)
-          .tickFormat("")
-      )
+  // gridlines in y axis function
+  function make_y_gridlines() {		
+      return d3.axisLeft(y)
+          .ticks(inputParameters.nztot/inputParameters.dl)
+  }
 
-// add the Y gridlines
-svg.append("g")			
-      .attr("class", "grid")
-      .call(make_y_gridlines()
-          .tickSize(-width)
-          .tickFormat("")
-      )
+  // add the X gridlines
+  svg.append("g")			
+        .attr("class", "grid")
+        .attr("transform", "translate(0," + height + ")")
+        .call(make_x_gridlines()
+            .tickSize(-height)
+            .tickFormat("")
+        )
 
-// add the X axis
- svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+  // add the Y gridlines
+  svg.append("g")			
+        .attr("class", "grid")
+        .call(make_y_gridlines()
+            .tickSize(-width)
+            .tickFormat("")
+        )
 
-// add the Y Axis
- svg.append("g")
-      .call(d3.axisLeft(y));
+  // add the X axis
+  svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
 
-
+  // add the Y Axis
+  svg.append("g")
+        .call(d3.axisLeft(y));
+});
 
 </script>
 </body>

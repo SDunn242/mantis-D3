@@ -2,8 +2,8 @@
     "Job_Name":"Giorgos_Batch",
     "fd_parameters": {
     "input_parameters": {
-        "nxtot": 201,
-        "nztot": 201,
+        "nxtot": 201, 
+        "nztot": 201,  
         "nxabs": 50,
         "nzabs": 50,
         "dl": 5.0,
