@@ -4,8 +4,8 @@
 
 ### Grid
 
-Maximum value horizontal (meters): `nxtot` * `dl` \
-Maximum value vertical (meters): `nztot` * `dl`
+Maximum value horizontal (meters): (`nxtot` - 1) * `dl` \
+Maximum value vertical (meters): (`nztot` - 1) * `dl`
 
 Number grid lines horizontal (tickpoints): `nxtot` / `dl` \
 Number grid lines vertical (tickpoints): `nztot` / `dl`
