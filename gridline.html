@@ -18,9 +18,6 @@ var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// set the ranges
-var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
@@ -36,6 +33,10 @@ var svg = d3.select("body").append("svg")
 d3.json("data.json").then(data => {
     const inSituModel = data.fd_parameters.in_situ_model;
     const inputParameters = data.fd_parameters.input_parameters;
+  
+  // set the ranges and domains
+  var x = d3.scaleLinear().range([0, width]).domain([0,((inputParameters.nxtot-1) * inputParameters.dl)]);
+  var y = d3.scaleLinear().range([height, 0]).domain([0,((inputParameters.nztot-1) * inputParameters.dl)]);
 
   // gridlines in x axis function
   function make_x_gridlines() {		
@@ -68,8 +69,8 @@ d3.json("data.json").then(data => {
 
   // add the X axis
   svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+        .attr("transform", "translate(0,0)")
+        .call(d3.axisTop(x));
 
   // add the Y Axis
   svg.append("g")
