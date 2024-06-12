@@ -19,6 +19,8 @@ var svg = d3.select("body").append("svg")
 d3.json("data.json").then(data => {
     const inSituModel = data.fd_parameters.in_situ_model;
     const inputParameters = data.fd_parameters.input_parameters;
+
+    console.log(inputParameters); 
   
   // set the ranges and domains of x axis
   var x = d3.scaleLinear().range([0, width]).domain([0,((inputParameters.nxtot-1) * inputParameters.dl)]);
@@ -64,16 +66,63 @@ d3.json("data.json").then(data => {
   svg.append("g")
         .call(d3.axisLeft(y));
 
-  // Add dots
-  svg.append('g')
-    .selectAll("dot")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function (d) { return x(d.GrLivArea); } )
-    .attr("cy", function (d) { return y(d.SalePrice); } )
-      .attr("r", 1.5)
-      .style("fill", "#69b3a2")
+  // Add input source
+  svg.selectAll("circle")
+        .data([data])
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+                   return x(d.fd_parameters.input_parameters.x_source);})
+        .attr("cy", function(d){return y(d.fd_parameters.input_parameters.z_source);})
+        .attr("r", function(d) {return 10;})
+        .style("fill", "rgb(255, 255, 0)")
+        .style("stroke", "black")
+        .style("stroke-width", 1)
+        .style("opacity", 0.5);
+
+// add horizontal receivers
+//generate array of x values
+const arrayRange = (start, stop, step) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+
+console.log(arrayRange(inputParameters.start_rcvr, inputParameters.end_rcvr,inputParameters.del_rcvr, 1)); // [1,2,3,4,5]
+
+
+// add the vertical arrays
+svg.selectAll("rect")
+        .data([data])
+        .enter()
+        .append("g")
+        .each(function(d){
+            d3.select(this).selectAll("rect")
+            .data(d.fd_parameters.input_parameters.vsp_x)
+            .enter()
+            .append("rect")
+            //i refers to the array with the x coordinates of the rect vsp_x
+            .attr("x", function(i){
+                console.log(x(i));
+                console.log(d.fd_parameters);
+                return x(i);})
+            .attr("y", function(d,i){ 
+                console.log("y is");
+                console.log(inputParameters.vsp_sz[i]);
+                return y(inputParameters.vsp_sz[i]);})
+            .attr("height", function(d,i){return y(inputParameters.vsp_ez[i] - inputParameters.vsp_sz[i]);})
+            .attr("width", function(){return 50;})
+            .style("fill", "rgb(255, 255, 0)")
+            .style("stroke", "black")
+            .style("stroke-width", 1)
+            .style("opacity", 0.5);
+})
+
+
+
+
+
+
 
   
 });
