@@ -14,7 +14,10 @@ Number grid lines vertical (tickpoints): `nztot` / `dl`
 
 Location of source (coordinates): (`x_source`, `z_source`)
 
-### Vertical arrays
+### Current Appearence
+
+<img width="1024" alt="Screenshot 2024-06-13 at 21 40 47" src="https://github.com/SDunn242/mantis-D3/assets/3731105/0cebb154-b02e-4cea-97e5-94b5d9294bc7">
+
 
 
 
