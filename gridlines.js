@@ -89,6 +89,35 @@ const arrayRange = (start, stop, step) =>
     (value, index) => start + index * step
     );
 
+//generate arrays of y values for vertical receivers
+
+
+let m = 'verticalArray';
+var x_array = [];
+var y_array = [];
+var len_y_array = [0];
+
+for (let a = 0; a < inputParameters.vsp_x.length; a++) {
+    y_array = y_array.concat(arrayRange(inputParameters.vsp_sz[a], inputParameters.vsp_ez[a], inputParameters.del_vsp[a]));
+    //generate list of the lengths of each vertical array
+    console.log(y_array.length);
+    len_y_array = len_y_array.concat(y_array.length);
+    console.log(len_y_array);
+    console.log(len_y_array[a]);
+} 
+
+for (let i = 0; i < len_y_array.length; i++) {
+    for (let j = len_y_array[i]; j < len_y_array[i+1]; j++) {
+    x_array = x_array.concat(inputParameters.vsp_x[i]);
+    console.log(inputParameters.vsp_x[i]);
+    }
+}
+
+console.log(y_array);
+console.log(len_y_array);
+console.log(x_array);
+
+
 
 // add the vertical arrays
 svg.selectAll("rect")
@@ -104,6 +133,9 @@ svg.selectAll("rect")
             .attr("x", function(i){
                 console.log(x(i));
                 console.log(d.fd_parameters);
+                console.log("len_y_array:");
+                console.log(len_y_array);
+                console.log(i);
                 return x(i);})
             .attr("y", function(d,i){ 
                 console.log("y is");
@@ -120,15 +152,38 @@ svg.selectAll("rect")
 //make horizontal receivers array
 rec_array = arrayRange(inputParameters.start_rcvr, inputParameters.end_rcvr,inputParameters.del_rcvr, 1); // [1,2,3,4,5]
 
-svg.selectAll("rect.boxes")
+svg.selectAll("rect.horzArray")
     .data(rec_array)
     .enter()
         .append("rect")
-           .attr("class", "boxes")
+           .attr("class", "horzArray")
            .attr("x", function(d){
             console.log(arrayRange)
             return x(d-2.5);})
            .attr("y", function(){return (-2.5);})
+           .attr("width", function(){return 5;})
+           .attr("height", function(){return 5;})
+           .style("fill", "rgb(255, 0, 255)")
+           .style("stroke", "black")
+           .style("stroke-width", 1)
+           .style("opacity", 0.5)
+
+    //make vertical receivers array
+
+    const combinedArray = x_array.map((value, index) => {
+        return { x: value, y: y_array[index] };
+      });
+      
+      console.log(combinedArray);
+
+    svg.selectAll("rect.verArray")
+        .data(combinedArray)
+        .enter()
+        .append("rect")
+           .attr("class", "verArray")
+           .attr("x", function(d){
+             return x(d.x);})
+           .attr("y", function(d){return y(d.y);})
            .attr("width", function(){return 5;})
            .attr("height", function(){return 5;})
            .style("fill", "rgb(255, 0, 255)")
