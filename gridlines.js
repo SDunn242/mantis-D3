@@ -15,6 +15,7 @@ var svg = d3.select("body").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
+
 // Load JSON data
 d3.json("data.json").then(data => {
     const inSituModel = data.fd_parameters.in_situ_model;
@@ -74,7 +75,7 @@ d3.json("data.json").then(data => {
         .attr("cx", function(d){
                    return x(d.fd_parameters.input_parameters.x_source);})
         .attr("cy", function(d){return y(d.fd_parameters.input_parameters.z_source);})
-        .attr("r", function(d) {return 10;})
+        .attr("r", function(d) {return 8;})
         .style("fill", "rgb(255, 255, 0)")
         .style("stroke", "black")
         .style("stroke-width", 1)
@@ -87,8 +88,6 @@ const arrayRange = (start, stop, step) =>
     { length: (stop - start) / step + 1 },
     (value, index) => start + index * step
     );
-
-console.log(arrayRange(inputParameters.start_rcvr, inputParameters.end_rcvr,inputParameters.del_rcvr, 1)); // [1,2,3,4,5]
 
 
 // add the vertical arrays
@@ -117,6 +116,25 @@ svg.selectAll("rect")
             .style("stroke-width", 1)
             .style("opacity", 0.5);
 })
+
+//make horizontal receivers array
+rec_array = arrayRange(inputParameters.start_rcvr, inputParameters.end_rcvr,inputParameters.del_rcvr, 1); // [1,2,3,4,5]
+
+svg.selectAll("rect.boxes")
+    .data(rec_array)
+    .enter()
+        .append("rect")
+           .attr("class", "boxes")
+           .attr("x", function(d){
+            console.log(arrayRange)
+            return x(d-2.5);})
+           .attr("y", function(){return (-2.5);})
+           .attr("width", function(){return 5;})
+           .attr("height", function(){return 5;})
+           .style("fill", "rgb(255, 0, 255)")
+           .style("stroke", "black")
+           .style("stroke-width", 1)
+           .style("opacity", 0.5)
 
 
 
