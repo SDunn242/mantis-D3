@@ -2,37 +2,74 @@
     "Job_Name":"Giorgos_Batch",
     "fd_parameters": {
     "input_parameters": {
-        "nxtot": 201, 
-        "nztot": 201,  
-        "nxabs": 50,
-        "nzabs": 50,
-        "dl": 5.0,
-        "nt": 15001,
-        "dt": 0.00005,
-        "nsnap": 1,
-        "fsnap": 5000,
-        "dsnap": 1,
-        "stype": 0,
-        "nsource": 9,
-        "x_source": 500.0,
-        "z_source": 500,
-        "start_rcvr": 0.0,
-        "end_rcvr": 800.0,
-        "del_rcvr": 20.0,
-        "rcvr_z": 500.0,
-        "nvsp": 1,
-        "vsp_x": [
-            500.0
-        ],
-        "vsp_sz": [
-            550.0
-        ],
-        "vsp_ez": [
-            850.0
-        ],
-        "del_vsp": [
-            20.0
-        ]
+            "nxtot": 201,
+            "nztot": 401,
+            "nxabs": 50,
+            "nzabs": 50,
+            "dl": 5,
+            "nt": 15001,
+            "dt": 0.00005,
+            "nsnap": 30,
+            "fsnap": 0,
+            "dsnap": 500,
+            "stype": 0,
+            "nsource": 9,
+            "x_source": 500,
+            "z_source": 0,
+            "start_rcvr": 500,
+            "end_rcvr": 1000,
+            "del_rcvr": 20,
+            "rcvr_z": 0,
+            "nvsp": 10,
+            "vsp_x": [
+              50,
+              150,
+              250,
+              350,
+              450,
+              550,
+              650,
+              750,
+              850,
+              950
+            ],
+            "vsp_sz": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "vsp_ez": [
+              1800,
+              1800,
+              1800,
+              1800,
+              1800,
+              1800,
+              1800,
+              1800,
+              1800,
+              1800
+            ],
+            "del_vsp": [
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          
     },
     "run_parameters": {
         "fpeak": 20,

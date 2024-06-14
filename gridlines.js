@@ -118,7 +118,7 @@ console.log(len_y_array);
 console.log(x_array);
 
 
-
+/*
 // add the vertical arrays
 svg.selectAll("rect")
         .data([data])
@@ -148,6 +148,7 @@ svg.selectAll("rect")
             .style("stroke-width", 1)
             .style("opacity", 0.5);
 })
+            */
 
 //make horizontal receivers array
 rec_array = arrayRange(inputParameters.start_rcvr, inputParameters.end_rcvr,inputParameters.del_rcvr, 1); // [1,2,3,4,5]
@@ -168,13 +169,13 @@ svg.selectAll("rect.horzArray")
            .style("stroke-width", 1)
            .style("opacity", 0.5)
 
-    //make vertical receivers array
+//make vertical receivers array
 
     const combinedArray = x_array.map((value, index) => {
         return { x: value, y: y_array[index] };
       });
       
-      console.log(combinedArray);
+    console.log(combinedArray);
 
     svg.selectAll("rect.verArray")
         .data(combinedArray)
@@ -182,11 +183,11 @@ svg.selectAll("rect.horzArray")
         .append("rect")
            .attr("class", "verArray")
            .attr("x", function(d){
-             return x(d.x);})
-           .attr("y", function(d){return y(d.y);})
+             return x(d.x - 2.5);})
+           .attr("y", function(d){return y(d.y)-2.5;})
            .attr("width", function(){return 5;})
            .attr("height", function(){return 5;})
-           .style("fill", "rgb(255, 0, 255)")
+           .style("fill", "rgb(173, 100, 252)")
            .style("stroke", "black")
            .style("stroke-width", 1)
            .style("opacity", 0.5)

@@ -41,6 +41,8 @@ d3.json("data.json").then(data => {
         .call(d3.axisLeft(y)
             .tickSize(-width)
             .tickFormat(''));
+    
+    console.log("hello")
 
     // Add vertical gridlines
     const verticalGridlines = d3.axisBottom(x)
